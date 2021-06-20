@@ -17,5 +17,13 @@ class Book(db.Model):
         db.session.add(new_book)
         db.session.commit()
 
-    def get_all_books():
+    def get_all_books(self):
         return Book.query.all()
+
+    def __repr__(self):
+        book_object = {
+            'name': self.name,
+            'price': self.price,
+            'isbn': self.isbn
+        }
+        return json.dumps(book_object)
