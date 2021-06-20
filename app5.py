@@ -105,8 +105,18 @@ def update_book(isbn):
 
 @app.route('/books/<int:isbn>', metthods=['DELETE'])
 def delete_book(isbn):
+    i = 0
     for book in books:
         if book["isbn"] == isbn:
-            return jsonify(book)
+            books.pop(i)
+            response = Response("", status=204)
+            return response
+        i += 1
+    invalidBookObjectErrorMsg = {
+        "error": "Book with the ISBN number that was provided was not found,"
+                 "so therfore unable "
+    }
+    response = Response(json(invalidBookObjectErrorMsg), status=404, mimetype='application/json')
+    return response
 
 app.run(port=5000)
