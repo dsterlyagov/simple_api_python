@@ -101,4 +101,12 @@ def update_book(isbn):
     response.headers['Location'] = "/books/"+str(isbn)
     return response
 
+# DELETE /books/81123781273
+
+@app.route('/books/<int:isbn>', metthods=['DELETE'])
+def delete_book(isbn):
+    for book in books:
+        if book["isbn"] == isbn:
+            return jsonify(book)
+
 app.run(port=5000)
